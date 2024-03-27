@@ -174,4 +174,90 @@ class CalculatorButton extends StatelessWidget {
     );
   }
 }
+class KmToMilesConverterScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Конвертер: км в мили'),
+      ),
+      body: ConverterBody(),
+    );
+  }
+}
+
+class ConverterBody extends StatefulWidget {
+  @override
+  _ConverterBodyState createState() => _ConverterBodyState();
+}
+
+class _ConverterBodyState extends State<ConverterBody> {
+  TextEditingController kmController = TextEditingController();
+  TextEditingController milesController = TextEditingController();
+
+  void convertKmToMiles() {
+    double km = double.tryParse(kmController.text) ?? 0;
+    double miles = km * 0.621371; // Формула для конвертации из км в мили
+    milesController.text = miles.toStringAsFixed(2);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextField(
+            controller: kmController,
+            decoration: InputDecoration(labelText: 'Километры'),
+            keyboardType: TextInputType.number,
+          ),
+          SizedBox(height: 16.0),
+          ElevatedButton(
+            onPressed: convertKmToMiles,
+            child: Text('Конвертировать'),
+          ),
+          SizedBox(height: 16.0),
+          TextField(
+            controller: milesController,
+            decoration: InputDecoration(labelText: 'Мили'),
+            keyboardType: TextInputType.number,
+            readOnly: true,
+          ),
+        ],
+      ),
+    );
+  }
+}
+class CalculatorScreen extends StatefulWidget {
+  @override
+  _CalculatorScreenState createState() => _CalculatorScreenState();
+}
+
+class _CalculatorScreenState extends State<CalculatorScreen> {
+  ...
+
+  void navigateToConverterScreen() {
+  Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => KmToMilesConverterScreen()),
+  );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+  return Scaffold(
+  appBar: AppBar(
+  title: const Text('Калькулятор'),
+  ),
+  body: CalculatorBody(onButtonPressed: _onButtonPressed, display: _display),
+  floatingActionButton: FloatingActionButton(
+  onPressed: navigateToConverterScreen,
+  tooltip: 'Конвертер км в мили',
+  child: Icon(Icons.swap_horiz), // Иконка для кнопки
+  ),
+  );
+  }
+}
 
