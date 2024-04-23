@@ -67,6 +67,7 @@ class CalculatorBody extends StatelessWidget {
               CalculatorButton('9', onButtonPressed),
               CalculatorButton('/', onButtonPressed),
             ],
+
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

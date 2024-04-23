@@ -3,6 +3,7 @@ class CalculatorLogic {
   double _operand2 = 0;
   String _operator = '';
 
+
   void setOperand(double operand) {
     if (_operator.isEmpty) {
       _operand1 = operand;
